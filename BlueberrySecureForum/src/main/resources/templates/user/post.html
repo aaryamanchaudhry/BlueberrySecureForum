@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript" src="script.js"></script>
+        <link rel="stylesheet" href="style3.css">
+    </head>
+    <body style="background-color: black;"  onload="myFunction();">
+    
+        <script>
+            function myFunction() {
+                
+var today = new Date()
+var curHr = today.getHours()
+
+if (curHr < 12) {
+  document.getElementById("timeid").innerHTML= "Good Morning"
+} else if (curHr < 18) {
+ document.getElementById("timeid").innerHTML= "Good Afternoon"
+} else {
+ document.getElementById("timeid").innerHTML= "Good Night"
+}
+
+
+
+            }
+            </script>
+            
+            <script>
+            
+            $(document).ready(function() { 
+                $("button").click(function() { 
+                    $(document).scrollTop($(document).height()); 
+                }); 
+            }); 
+        </script> 
+           
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header" style="color:white">
+        <img  style="background-color: purple;" th:src="@{/img/blackberry.png}" src="blackberry.png" alt="Smiley face" height="42" width="42">
+        <span class="text-font" style="background-color: purple; font-size: large;font-weight: bold;">Blueberry</span> 
+        <span class="glyphicon glyphicon-user"></span><span id="timeid" class="time"></span> Name  <span class="dot"></span>
+        &nbsp;
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li ><a href="#" th:href="@{/}">Home</a></li>
+      
+        <li class="active"><a href="#">Write a new post</a> </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right"  style=" color:white; text-align:center;">
+  
+        <li><a href="#"><span class="glyphicon glyphicon-log-in" ></span> Logout </a></li>
+      </ul>
+    </div>
+  </nav>
+    
+  
+
+
+    <script type="text/javascript">
+        function check_val()
+        {
+         var bad_words=new Array("anal","anus","arse","ass","ballsack","balls","bastard","bitch","biatch","bloody","blowjob","blow job","bollock","bollok","boner","boob","bugger","bum","butt","buttplug","clitoris","cock","coon","crap","cunt","damn","dick","dildo","dyke","fag","feck","fellate","fellatio","felching","fuck","f u c k","fudgepacker","fudge packer","flange","Goddamn","God damn","hell","homo","jerk","jizz","knobend","knob end","labia","lmao","lmfao","muff","nigger","nigga","omg","penis","piss","poop","prick","pube","pussy","queer","scrotum","sex","shit","s hit","sh1t","slut","smegma","spunk","tit","tosser","turd","twat","vagina","wank","whore","wtf");
+         var check_text=document.getElementById("text").value;
+         var error=0;
+         for(var i=0;i<bad_words.length;i++)
+         {
+          var val=bad_words[i];
+          if((check_text.toLowerCase()).indexOf(val.toString())>-1)
+          {
+           error=error+1;
+          }
+         }
+            
+         if(error>0)
+         {
+          document.getElementById("bad_notice").innerHTML="YOU ARE FIRED &#128545; &#128548; ";
+         }
+         else
+         {
+          document.getElementById("bad_notice").innerHTML="";
+         }
+        }
+
+        function check_val2()
+        {
+         var bad_words=new Array("anal","anus","arse","ass","ballsack","balls","bastard","bitch","biatch","bloody","blowjob","blow job","bollock","bollok","boner","boob","bugger","bum","butt","buttplug","clitoris","cock","coon","crap","cunt","damn","dick","dildo","dyke","fag","feck","fellate","fellatio","felching","fuck","f u c k","fudgepacker","fudge packer","flange","Goddamn","God damn","hell","homo","jerk","jizz","knobend","knob end","labia","lmao","lmfao","muff","nigger","nigga","omg","penis","piss","poop","prick","pube","pussy","queer","scrotum","sex","shit","s hit","sh1t","slut","smegma","spunk","tit","tosser","turd","twat","vagina","wank","whore","wtf");
+         var check_text=document.getElementById("text2").value;
+         var error=0;
+         for(var i=0;i<bad_words.length;i++)
+         {
+          var val=bad_words[i];
+          if((check_text.toLowerCase()).indexOf(val.toString())>-1)
+          {
+           error=error+1;
+          }
+         }
+            
+         if(error>0)
+         {
+          document.getElementById("bad_notice").innerHTML="YOU ARE FIRED &#128545; &#128548; ";
+         }
+         else
+         {
+          document.getElementById("bad_notice").innerHTML="";
+         }
+        }
+        </script>
+<div class="container">
+  <form style="background-color: purple; color:white;">
+    <div class="form-group">
+        <label>Write a Topic:</label>
+
+    
+	
+      <input type="text" class="form-control" name="topic" id="text" onKeyUp="check_val()" >
+      <label>Your Post:</label>
+
+    
+	
+      <input type="text" class="form-control" name="post" id="text2" onKeyUp="check_val2()" >
+      <h2 id="bad_notice"></h2>
+    <button type="submit" class="btn btn-primary">Submit your post!</button>
+
+
+      
+  
+</div>
+
+  
+
+</div>
+  
+<div class="container">
+    <div class="jumbotron">
+      
+      <p>For an easter egg, try typing a curse word in your post.</p>
+      
+    </div>
+      
+  </div>
+  
+  
+
+    </body>
+</html>

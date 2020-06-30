@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Welcome</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="script.js"></script>
+<link rel="stylesheet" href="style3.css">
+
+<style>
+.dot {
+	height: 15px;
+	width: 15px;
+	background-color: rgb(7, 253, 7);
+	border-radius: 50%;
+	display: inline-block;
+}
+</style>
+
+</head>
+<body style="background-color: black;" onload="myFunction();">
+
+	<script>
+		function myFunction() {
+
+			var today = new Date()
+			var curHr = today.getHours()
+
+			if (curHr < 12) {
+				document.getElementById("timeid").innerHTML = "Good Morning"
+			} else if (curHr < 18) {
+				document.getElementById("timeid").innerHTML = "Good Afternoon"
+			} else {
+				document.getElementById("timeid").innerHTML = "Good Night"
+			}
+
+		}
+
+		function time() {
+			var today = new Date();
+
+			var time = today.getHours() + ":" + today.getMinutes() + ":"
+					+ today.getSeconds();
+
+			document.getElementById("posttime").value = time.toString();
+			console.log(time);
+			console.log(document.getElementById("posttime").value);
+		}
+
+		function date() {
+			var today = new Date();
+
+			var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-'
+					+ today.getDate();
+
+			document.getElementById("postdate").value = date;
+		}
+	</script>
+	<script>
+		
+	</script>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header" style="color: white">
+				<img style="background-color: purple;"
+					th:src="@{/img/blackberry.png}" src="blackberry.png"
+					alt="Smiley face" height="42" width="42"> <span
+					class="text-font"
+					style="background-color: purple; font-size: large; font-weight: bold;">Blueberry</span>
+				<span class="glyphicon glyphicon-user"></span><span id="timeid"
+					class="time"></span> [[${name}]]<span class="dot"></span> &nbsp;
+			</div>
+
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#" th:href="@{/user}">Home</a></li>
+
+
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right"
+				style="color: white; text-align: center;">
+
+				<li><a href="#" th:href="@{/logout}"><span
+						class="glyphicon glyphicon-log-in"></span> Logout </a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<form method="post" th:action="@{/addPost}" th:object="${post}"
+			style="background-color: pink; color: black;">
+
+			<input type="hidden" th:field="*{id}" />
+            
+			<h2>Submit your topic</h2>
+			<label>Write a Topic:</label> <input type="text" class="form-control"
+				th:field="*{posttopic}" id="text3" onKeyUp="check_val3()" /> <label>Write
+				a Title:</label> <input type="text" class="form-control"
+				th:field="*{posttitle}" id="text" onKeyUp="check_val()" /> <label>Your
+				
+				
+				Post:</label> <input type="text" class="form-control"
+				th:field="*{postcontent}" id="text2"
+				onKeyUp="time(); date(); check_val2()" />
+			<h2 id="bad_notice"></h2>
+
+
+
+
+			<input type="hidden" id="postdate" th:field="*{postdate}" /> 
+			<input type="hidden" id="posttime" th:field="*{posttime}" />
+
+			<button type="submit" class="btn btn-primary">Submit your
+				post!</button>
+
+			<h2 id="bad_notice"></h2>
+
+		</form>
+
+
+
+
+	</div>
+
+	<div class="container">
+		<div class="jumbotron">
+
+			<p>For an easter egg, try typing a curse word in your post.</p>
+
+		</div>
+
+
+	</div>
+
+	<div class="container">
+		<form method="get" th:action="@{/searchByTopic}"
+			style="background-color: purple; color: white;">
+			<div class="form-group">
+				<label for="usr">Topic:</label> <input type="text"
+					class="form-control" id="usr" name="topic" th:text="*{topic}">
+			</div>
+			<button type="submit" class="btn btn-primary">Search By
+				Topic</button>
+		</form>
+
+		<form method="get" th:action="@{/searchByTitle}"
+			style="background-color: purple; color: white;">
+			<div class="form-group">
+				<label for="usr">Title:</label> <input type="text"
+					class="form-control" id="usr" name="title" th:text="*{title}">
+			</div>
+			<button type="submit" class="btn btn-primary">Search By
+				Title</button>
+		</form>
+
+	</div>
+
+	<div id="anchor" style="background-color: yellow">
+		<div class="container">
+			<div class="jumbotron" th:each="p : ${postlist}">
+				<h2 th:text="${p.posttitle + ' ( ' + p.posttopic + ' ) '}"></h2>
+
+				<p th:text="${p.postcontent}"></p>
+				<div style="clear: both">
+					<h2 style="float: left" th:text="${p.posttime}"></h2>
+					<h2 style="float: right" th:text="${p.postdate}"></h2>
+					
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript">
+		function check_val() {
+			var bad_words = new Array("anal", "anus", "arse", "ass",
+					"ballsack", "balls", "bastard", "bitch", "biatch",
+					"bloody", "blowjob", "blow job", "bollock", "bollok",
+					"boner", "boob", "bugger", "bum", "butt", "buttplug",
+					"clitoris", "cock", "coon", "crap", "cunt", "damn", "dick",
+					"dildo", "dyke", "fag", "feck", "fellate", "fellatio",
+					"felching", "fuck", "f u c k", "fudgepacker",
+					"fudge packer", "flange", "Goddamn", "God damn", "hell",
+					"homo", "jerk", "jizz", "knobend", "knob end", "labia",
+					"lmao", "lmfao", "muff", "nigger", "nigga", "omg", "penis",
+					"piss", "poop", "prick", "pube", "pussy", "queer",
+					"scrotum", "sex", "shit", "s hit", "sh1t", "slut",
+					"smegma", "spunk", "tit", "tosser", "turd", "twat",
+					"vagina", "wank", "whore", "wtf");
+			var check_text = document.getElementById("text").value;
+			var error = 0;
+			for (var i = 0; i < bad_words.length; i++) {
+				var val = bad_words[i];
+				if ((check_text.toLowerCase()).indexOf(val.toString()) > -1) {
+					error = error + 1;
+				}
+			}
+
+			if (error > 0) {
+				document.getElementById("bad_notice").innerHTML = "YOU ARE FIRED &#128545; &#128548; ";
+			} else {
+				document.getElementById("bad_notice").innerHTML = "";
+			}
+		}
+
+		function check_val2() {
+			var bad_words = new Array("anal", "anus", "arse", "ass",
+					"ballsack", "balls", "bastard", "bitch", "biatch",
+					"bloody", "blowjob", "blow job", "bollock", "bollok",
+					"boner", "boob", "bugger", "bum", "butt", "buttplug",
+					"clitoris", "cock", "coon", "crap", "cunt", "damn", "dick",
+					"dildo", "dyke", "fag", "feck", "fellate", "fellatio",
+					"felching", "fuck", "f u c k", "fudgepacker",
+					"fudge packer", "flange", "Goddamn", "God damn", "hell",
+					"homo", "jerk", "jizz", "knobend", "knob end", "labia",
+					"lmao", "lmfao", "muff", "nigger", "nigga", "omg", "penis",
+					"piss", "poop", "prick", "pube", "pussy", "queer",
+					"scrotum", "sex", "shit", "s hit", "sh1t", "slut",
+					"smegma", "spunk", "tit", "tosser", "turd", "twat",
+					"vagina", "wank", "whore", "wtf");
+			var check_text = document.getElementById("text2").value;
+			var error = 0;
+			for (var i = 0; i < bad_words.length; i++) {
+				var val = bad_words[i];
+				if ((check_text.toLowerCase()).indexOf(val.toString()) > -1) {
+					error = error + 1;
+				}
+			}
+
+			if (error > 0) {
+				document.getElementById("bad_notice").innerHTML = "YOU ARE FIRED &#128545; &#128548; ";
+			} else {
+				document.getElementById("bad_notice").innerHTML = "";
+			}
+		}
+
+		function check_val3() {
+			var bad_words = new Array("anal", "anus", "arse", "ass",
+					"ballsack", "balls", "bastard", "bitch", "biatch",
+					"bloody", "blowjob", "blow job", "bollock", "bollok",
+					"boner", "boob", "bugger", "bum", "butt", "buttplug",
+					"clitoris", "cock", "coon", "crap", "cunt", "damn", "dick",
+					"dildo", "dyke", "fag", "feck", "fellate", "fellatio",
+					"felching", "fuck", "f u c k", "fudgepacker",
+					"fudge packer", "flange", "Goddamn", "God damn", "hell",
+					"homo", "jerk", "jizz", "knobend", "knob end", "labia",
+					"lmao", "lmfao", "muff", "nigger", "nigga", "omg", "penis",
+					"piss", "poop", "prick", "pube", "pussy", "queer",
+					"scrotum", "sex", "shit", "s hit", "sh1t", "slut",
+					"smegma", "spunk", "tit", "tosser", "turd", "twat",
+					"vagina", "wank", "whore", "wtf");
+			var check_text = document.getElementById("text3").value;
+			var error = 0;
+			for (var i = 0; i < bad_words.length; i++) {
+				var val = bad_words[i];
+				if ((check_text.toLowerCase()).indexOf(val.toString()) > -1) {
+					error = error + 1;
+				}
+			}
+
+			if (error > 0) {
+				document.getElementById("bad_notice").innerHTML = "YOU ARE FIRED &#128545; &#128548; ";
+			} else {
+				document.getElementById("bad_notice").innerHTML = "";
+			}
+		}
+	</script>
+<body>
+</html>
+

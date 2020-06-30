@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login Form</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,
+        shrink-to-fit=no">
+<link rel="stylesheet" type="text/css" href="style.css"
+	th:href="@{/css/style.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+
+<style>
+.image-container {
+	background: url('img/bg.jpg') center no-repeat;
+	background-size: cover;
+	height: 100vh;
+}
+
+.form-container {
+	background-color: #9900cc;
+	display: flex;
+	justify-content: center;
+}
+
+.form-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.form-box h2 {
+	font-weight: bold;
+	color: #fff;
+}
+</style>
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 d-none d-md-block image-container">
+
+			</div>
+
+			<div class=" col-lg-6 col-md-6 form-container">
+				<div
+					class="col-lg-8 col-md-12 col-sm-9 col-xs-12 form-box text-center">
+					<div class="logo mb-3">
+						<img src="blackberry.png" alt="Smiley face"
+							th:src="@{/img/blackberry.png}" height="42" width="42">
+					</div>
+
+					<div class="heading mb-4">
+						<h2>Blueberry</h2>
+					</div>
+
+
+					<form method="post" th:action="@{/login}">
+
+						<div class="form-group">
+
+
+							<input type="text" id="username" name="username"
+								autofocus="autofocus" class="form-control"
+								aria-describedby="emailHelp" placeholder="Enter username">
+
+						</div>
+						<div class="form-group">
+
+							<input type="password" class="form-control" id="password"
+								name="password" placeholder="Enter Password">
+						</div>
+
+						<button type="submit" class="btn btn-primary" name="login-submit"
+							id="login-submit" value="Log In">Login</button>
+
+						</br> <a href="/register" th:href="@{/register}"
+							class="btn btn-secondary">New Employee ? Register Here </a>
+
+
+
+					</form>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
+
